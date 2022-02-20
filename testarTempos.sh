@@ -1,12 +1,13 @@
 #!/bin/bash
 
+
 # Compilador e suas flags para a compilação
 compilador=gcc
 flagOtimizadora="-O3"
 flags="-fopenmp ${flagOtimizadora}"
 
 # Ferramentas usadas
-tempo="/usr/bin/time "
+tempo="/usr/bin/time -p"
 
 # Outputs do compilador
 outSequencial="sequencial"
