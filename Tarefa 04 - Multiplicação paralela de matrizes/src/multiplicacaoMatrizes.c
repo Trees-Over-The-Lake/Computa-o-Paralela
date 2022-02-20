@@ -6,7 +6,7 @@ void mm(double* a, double* b, double* c, int width)
 {
 int i, j, k;
 
-#pragma omp parallel private(i, j, k) shared(a, b, c)
+#pragma omp parallel for private(i, j, k) shared(a, b, c)
 for (i = 0; i < width; i++) {
     for (j = 0; j < width; j++) {
     double sum = 0;
@@ -29,16 +29,13 @@ int main()
   double *b = (double*) malloc (width * width * sizeof(double));
   double *c = (double*) malloc (width * width * sizeof(double));
 
-  omp_set_num_threads(2);
+  omp_set_num_threads(4);
 
-  #pragma omp workshare
-  {
-    for(int i = 0; i < width; i++) {
-      for(int j = 0; j < width; j++) {
-        a[i*width+j] = i;
-        b[i*width+j] = j;
-        c[i*width+j] = 0;
-      }
+  for(int i = 0; i < width; i++) {
+    for(int j = 0; j < width; j++) {
+      a[i*width+j] = i;
+      b[i*width+j] = j;
+      c[i*width+j] = 0;
     }
   }
 
