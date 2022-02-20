@@ -4,14 +4,13 @@
 
 void mm(double* a, double* b, double* c, int width) 
 {
-int i, j, k;
-
-#pragma omp parallel for private(i, j, k) shared(a, b, c)
-for (i = 0; i < width; i++) {
-    for (j = 0; j < width; j++) {
+#pragma omp parallel for collapse(2)
+for (int i = 0; i < width; i++) {
+    for (int j = 0; j < width; j++) {
     double sum = 0;
 
-      for (k = 0; k < width; k++) {
+      #pragma omp parallel for reduction(+: sum)
+      for (int k = 0; k < width; k++) {
         double x = a[i * width + k];
         double y = b[k * width + j];
         sum += x * y;
@@ -29,8 +28,7 @@ int main()
   double *b = (double*) malloc (width * width * sizeof(double));
   double *c = (double*) malloc (width * width * sizeof(double));
 
-  omp_set_num_threads(4);
-
+  #pragma omp parallel for collapse(2)
   for(int i = 0; i < width; i++) {
     for(int j = 0; j < width; j++) {
       a[i*width+j] = i;
@@ -41,9 +39,9 @@ int main()
 
   mm(a,b,c,width);
 
-  // for(int i = 0; i < width; i++) {
-  //   for(int j = 0; j < width; j++) {
-  //     printf("\n c[%d][%d] = %f",i,j,c[i*width+j]);
-  //   }
-  // }
+  for(int i = 0; i < width; i++) {
+    for(int j = 0; j < width; j++) {
+      printf("\n c[%d][%d] = %f",i,j,c[i*width+j]);
+    }
+  }
 }

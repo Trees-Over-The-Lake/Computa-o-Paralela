@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <omp.h>
 
 void mm(double* a, double* b, double* c, int width) 
 {
@@ -36,9 +35,9 @@ int main()
 
   mm(a,b,c,width);
 
-  // for(int i = 0; i < width; i++) {
-  //   for(int j = 0; j < width; j++) {
-  //     printf("\n c[%d][%d] = %f",i,j,c[i*width+j]);
-  //   }
-  // }
+  for(int i = 0; i < width; i++) {
+    for(int j = 0; j < width; j++) {
+      printf("\n c[%d][%d] = %f",i,j,c[i*width+j]);
+    }
+  }
 }
