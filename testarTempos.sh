@@ -43,10 +43,12 @@ $compilador -o $outSequencial $flagOtimizadora "$1"
 $compilador -o $outParalelo $flags "$2"
 
 # Testar sequêncial
-$tempo -o $tempoSequencial ./$outSequencial > $saidaSequencial    
+$tempo -o $tempoSequencial ./$outSequencial > $saidaSequencial
+echo "" >> $tempoSequencial    
 
 # Testar paralelo
 $tempo -o $tempoParalelo ./$outParalelo > $saidaParalela
+echo "" >> $tempoParalelo
 
 # Testar saídas
 if [[ $(git diff --exit-code $saidaSequencial $saidaParalela) == 0 ]];
@@ -59,10 +61,12 @@ fi
 for i in {0..9};
 do
     $tempo -a -o $tempoSequencial ./$outSequencial > /dev/null;
+    echo "" >> $tempoSequencial;
 done
 
 # Testar tempo paralelo
 for i in {0..9};
 do
     $tempo -a -o $tempoParalelo ./$outParalelo > /dev/null;
+    echo "" >> $tempoParalelo;
 done
