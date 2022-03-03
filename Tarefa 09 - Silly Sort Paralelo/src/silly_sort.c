@@ -65,38 +65,38 @@
    user 5.96
    sys 0.00
 
-   Tempo paralelo usando Guided:
+   Tempo paralelo usando Static:
 
-   real 2.85
-   user 4.89
-   sys 0.00
-   real 2.64
-   user 4.89
-   sys 0.00
-   real 2.80
-   user 5.07
-   sys 0.00
-   real 2.80
-   user 5.57
-   sys 0.00
-   real 3.89
-   user 7.26
+   real 2.67
+   user 4.93
    sys 0.00
    real 2.64
    user 4.91
    sys 0.00
-   real 2.82
-   user 5.08
+   real 2.63
+   user 4.89
    sys 0.00
    real 2.63
    user 4.90
    sys 0.00
    real 2.64
+   user 4.92
+   sys 0.00
+   real 2.65
    user 4.91
    sys 0.00
-   real 2.64
-   user 4.90
-   sys 0.01
+   real 3.82
+   user 6.07
+   sys 0.00
+   real 2.75
+   user 5.02
+   sys 0.00
+   real 2.81
+   user 5.07
+   sys 0.00
+   real 2.96
+   user 5.45
+   sys 0.00
 */
 
 #include <stdio.h>
