@@ -22,7 +22,7 @@ int main()
    //      printf("%d ",in[i]);
     
    // Silly sort (you have to make this code parallel)
-   #pragma omp parallel for collapse(2)
+   #pragma omp parallel for collapse(2) schedule(guided, 100)
    for(i=0; i < n; i++) 
       for(j=0; j < n; j++)
 	     if(in[i] > in[j]) 
