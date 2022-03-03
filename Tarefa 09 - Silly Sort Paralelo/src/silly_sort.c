@@ -1,3 +1,104 @@
+/*
+   Tempo sequencial:
+
+   real 4.36
+   user 4.36
+   sys 0.00
+   real 4.35
+   user 4.35
+   sys 0.00
+   real 4.36
+   user 4.35
+   sys 0.00
+   real 4.36
+   user 4.36
+   sys 0.00
+   real 6.53
+   user 6.52
+   sys 0.00
+   real 4.36
+   user 4.36
+   sys 0.00
+   real 6.23
+   user 6.22
+   sys 0.00
+   real 6.51
+   user 6.50
+   sys 0.00
+   real 4.39
+   user 4.39
+   sys 0.00
+   real 4.35
+   user 4.35
+   sys 0.00
+
+   Tempo paralelo sem schedule:
+
+   real 3.31
+   user 5.87
+   sys 0.00
+   real 3.26
+   user 5.89
+   sys 0.00
+   real 3.36
+   user 5.98
+   sys 0.00
+   real 2.63
+   user 4.89
+   sys 0.00
+   real 2.64
+   user 4.90
+   sys 0.00
+   real 2.64
+   user 4.89
+   sys 0.00
+   real 3.11
+   user 5.75
+   sys 0.00
+   real 3.45
+   user 6.18
+   sys 0.00
+   real 2.63
+   user 4.88
+   sys 0.00
+   real 3.32
+   user 5.96
+   sys 0.00
+
+   Tempo paralelo usando Guided:
+
+   real 2.85
+   user 4.89
+   sys 0.00
+   real 2.64
+   user 4.89
+   sys 0.00
+   real 2.80
+   user 5.07
+   sys 0.00
+   real 2.80
+   user 5.57
+   sys 0.00
+   real 3.89
+   user 7.26
+   sys 0.00
+   real 2.64
+   user 4.91
+   sys 0.00
+   real 2.82
+   user 5.08
+   sys 0.00
+   real 2.63
+   user 4.90
+   sys 0.00
+   real 2.64
+   user 4.91
+   sys 0.00
+   real 2.64
+   user 4.90
+   sys 0.01
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -22,8 +123,9 @@ int main()
    //      printf("%d ",in[i]);
     
    // Silly sort (you have to make this code parallel)
-   #pragma omp parallel for collapse(2) schedule(guided, 100)
+   #pragma omp parallel for schedule(static, 100)
    for(i=0; i < n; i++) 
+      #pragma omp parallel for schedule(static, 100)
       for(j=0; j < n; j++)
 	     if(in[i] > in[j]) 
             pos[i]++;	
