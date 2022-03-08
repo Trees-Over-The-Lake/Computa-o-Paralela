@@ -16,7 +16,7 @@ int sieveOfEratosthenes(int n)
 
    memset(prime, true,(n+1)*sizeof(bool));
 
-  #pragma omp parallel for schedule(guided)
+  #pragma omp parallel for schedule(guided, 100)
    for (int p=2; p <= sqrt_n; p++)
    {
        // If prime[p] is not changed, then it is a prime
@@ -24,12 +24,12 @@ int sieveOfEratosthenes(int n)
        {
            #pragma omp parallel for
            for (int i=p*2; i<=n; i += p)
-           prime[i] = false;
+            prime[i] = false;
         }
     }
 
     // count prime numbers
-#pragma omp parallel for schedule(guided) reduction (+:primes)
+#pragma omp parallel for schedule(static,100) reduction (+:primes)
     for (int p=2; p<=n; p++)
        if (prime[p])
          primes++;
