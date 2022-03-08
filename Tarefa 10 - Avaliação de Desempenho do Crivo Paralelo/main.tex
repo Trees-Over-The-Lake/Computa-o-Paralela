@@ -8,6 +8,7 @@
 \usepackage{xcolor}
 \usepackage{natbib}
 \usepackage{graphicx}
+\usepackage{array}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -41,15 +42,65 @@
 \clearpage
 \thispagestyle{empty}
 
-\title{Avaliando ao Desempenho do Crivo Paralelo - Perf}
+\title{Avaliando ao Desempenho do Crivo Paralelo - Ferramenta \emph{Perf}}
 \author{Lucas Santiago}
 \date{Março de 2022}
 
-
+\renewcommand{\thefootnote}{*}
 
 \begin{document}
 \maketitle
 
+    \vspace{2cm}
+
+    \section*{Código do Crivo de Erastóteles}
+    \lstinputlisting[language=c]{src/crivoDeEratostenes.c}
+
+    
+    \newpage
+    \section*{Valores obtidos pela ferramenta \emph{perf}}
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|m{4cm}|c|c|}
+            \hline
+            & Crivo Sequêncial & Crivo Paralelo \\
+            \hline
+            CPU utilizada (\%) & 99,8\% & 126\% \\
+            \hline
+            Ciclos ociosos na ULA & \footnote[1]{} & \footnote[1]{} \\
+            \hline
+            Ciclos ociosos na busca de instrução & \footnote[1]{} & \footnote[1]{} \\
+            \hline
+            Trocas de contexto & 0,085 K/sec & 0,085 K/sec \\
+            \hline
+            
+            \emph{Page Faults} & 0,006 M/sec & 0,005 M/sec \\
+            \hline
+            
+            Instruções por ciclo & 0,38 inst por cicle & 0,34 inst por cicle \\
+            \hline
+            Taxa de falta na cache L3 & 1,419 M/sec & 2,117 M/sec \\
+            \hline
+            Tempo total de execução & 4,072374329 segundos & 3,846906854 segundos \\
+            \hline
+        \end{tabular}
+        \caption{Tabela de desempenho do Crivo de Erastóteles}
+    \end{table}
+    \footnotetext[1]{Elemento não presente na ferramenta \emph{Perf}}
+    
+    \section*{Possíveis ideias de otimização do código}
+    Olhando para esses valores é possível notar que a execução do código sequên- cial consegue
+    fazer um grande uso de 99,8\% da CPU utilizada, enquanto a versão paralela está tendo um ganho de
+    aproximadamente 26\% a mais na segunda CPU utilizada. Com esse número é fácil de notar uma falta de balanceamento
+    de carga de trabalho entre as \emph{threads}. A primeira consegue fazer um uso de quase 100\% da CPU,
+    enquanto a segunda tem apenas $1/4$ de sua capacidade utilizada. Uma primeira otimização seria dividir melhor
+    o trabalho entre as \emph{threads}, usando uma \emph{scheduler} melhor no grande for do crivo.
+    
+    Apenas isso não será suficiente, outro ponto notado foi a gigantesca taxa de erro
+    da cache L3. Um aumento em aproximadamente 49\% da versão sequêncial para a paralela.
+    Uma melhor distribuição das variáveis dentro da cache seria um ganho significativo.
+    Para isso um melhor uso de variáveis do tipo \emph{shared} e \emph{private} teria 
+    um possível ganho.  
 
 
 \end{document}
