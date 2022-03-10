@@ -1,3 +1,53 @@
+/*
+  Tempos sequencial
+  “Work Hard” Proposition :
+  Price : 185.382
+  UNITED STATES Airlines-143811646172561-CHICAGO (4/22 11h15min)/SEATTLE (4/22 21h15min)-67.8221$-70%
+  UNITED STATES Airlines-958384950201540-SEATTLE (12/20 11h13min)/CHICAGO (12/20 20h13min)-197.009$-70%
+
+  Work hard time = 2.051875
+
+  real	0m2.584s
+  user	0m2.379s
+  sys	0m0.183s
+
+
+  Tempo paralelo com apenas 1 função paralela
+  Work hard time = 3.057482
+
+  real	0m3.610s
+  user	0m6.461s
+  sys	0m0.196s
+
+  “Work Hard” Proposition :
+  Price : 185.382
+  UNITED STATES Airlines-143811646172561-CHICAGO (4/22 11h15min)/SEATTLE (4/22 21h15min)-67.82
+  21$-70%
+  UNITED STATES Airlines-958384950201540-SEATTLE (12/20 11h13min)/CHICAGO (12/20 20h13min)-197
+  .009$-70%
+
+  Tempo paralelo com 3 funções
+  Work hard time = 1.780554
+
+  real	0m2.329s
+  user	0m3.888s
+  sys	0m0.211s
+
+
+  “Work Hard” Proposition :
+  Price : 185.382
+  UNITED STATES Airlines-143811646172561-CHICAGO (UNITED STATES Airlines-958384950201540-SEATT 
+  LE (12//20 22 1h013minICO15)/in0)/CHICAGO (12/SEATTLE20 (2/3h722 3minA)-21h15min)-67.8221$-1  
+  97.009$-70%
+  UNITED STATES Airlines-143811646172561-CHICAGO (UNITED STATES Airlines-958384950201540-SEATT 
+  LE (12//20 22 1h013minICO15)/in0)/CHICAGO (12/SEATTLE20 (2/3h722 3minA)-21h15min)-67.8221$-1
+  97.009$-70%
+  70%
+
+
+*/
+
+
 /*!
  * \file main.cpp
  * \brief This file contains source code that solves the Work Hard - Play Hard problem for the Acceler8 contest
