@@ -188,7 +188,8 @@ void compute_path(vector<Flight>& flights, string to, vector<Travel>& travels, u
     if(current_city.to == to){
       final_travels.push_back(travel);
     }else{//otherwise, we need to compute a path
-      for(unsigned int i=0; i<flights.size(); i++){
+	#pragma omp parallel for schedule(dynamic)
+     for(unsigned int i=0; i<flights.size(); i++){
 	Flight flight = flights[i];
 	if(flight.from == current_city.to &&
 	   flight.take_off_time >= t_min &&
@@ -246,14 +247,16 @@ Travel find_cheapest(vector<Travel>& travels, vector<vector<string> >&alliances)
  * \param t_max You must not be in a plane after this value (epoch).
  */
 void fill_travel(vector<Travel>& travels, vector<Flight>& flights, string starting_point, unsigned long t_min, unsigned long t_max){
-  for(unsigned int i=0; i< flights.size(); i++){
+#pragma omp parallel for
+for(unsigned int i=0; i< flights.size(); i++){
     if(flights[i].from == starting_point &&
        flights[i].take_off_time >= t_min &&
        flights[i].land_time <= t_max){
       Travel t;
       t.flights.push_back(flights[i]);
-      travels.push_back(t);
-    }
+	#pragma omp critical
+	travels.push_back(t);    
+}
   }
 }
 
@@ -596,7 +599,8 @@ void print_alliances(vector<vector<string> > &alliances){
  * \param flights The flights.
  */
 void print_flights(vector<Flight>& flights, ofstream& output){
-  for(unsigned int i=0; i<flights.size(); i++)
+	#pragma omp parallel for ordered
+for(unsigned int i=0; i<flights.size(); i++)
     print_flight(flights[i], output);
 }
 
@@ -643,6 +647,7 @@ void output_work_hard(vector<Flight>& flights, Parameters& parameters, vector<ve
 }
 
 int main(int argc, char **argv) {
+  omp_set_num_threads(4);
   Parameters parameters;
   vector<vector<string> > alliances;
   read_parameters(parameters, argc, argv);
