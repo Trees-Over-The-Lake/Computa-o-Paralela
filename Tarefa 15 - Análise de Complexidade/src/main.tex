@@ -56,4 +56,19 @@ Código escolhido para paralelizar:
 Versão paralelizada do código:
 \lstinputlisting[language=c]{crivo paralelo.c}
 
+O grande problema do algoritmo de Erastótenes é que há grande dependência
+de dados entre os dois \emph{for} presentes. O \emph{if} que está entre
+os dois causa uma dependência de dados.  
+
+Uma forma de tornar esse código mais eficiente seria trocar a posição entre 
+o segundo \emph{for} com o primeiro \emph{if}. Para que isso fosse possível
+seria necessário modificar parte do código para que o teste se o valor dentro
+do vetor de primos seja verdadeiro sem afetar o resultado correto do algoritmo.
+
+Com um número de \emph{threads} infinito seria possível tornar esse código
+de $\mathcal{O}(N^2)$ para $\mathcal{O(N)}$, se a primeira parte do código
+for executada de forma paralela entre todas as \emph{threads}, a segunda
+parte que envolve uma dependência de dados seja feita de forma sequêncial
+entre todas as \emph{threads} com tempo $\mathcal{O}(N)$.
+ 
 \end{document}

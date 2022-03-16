@@ -1,4 +1,4 @@
-// CRIVO DE ERASTOTENES PARALELO COM PRAM
+// CRIVO DE ERASTOTENES PARALELO DE FORMA INGENUA
 
 #pragma omp parallel for
 for(int p=2; p*p<=n; p++) {
