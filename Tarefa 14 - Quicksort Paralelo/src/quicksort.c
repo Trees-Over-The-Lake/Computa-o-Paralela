@@ -1,6 +1,7 @@
 /* C implementation QuickSort from  http://w...content-available-to-author-only...s.org/quick-sort/ */
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
  
 // A utility function to swap two elements
 void swap(int* a, int* b)
@@ -45,11 +46,22 @@ void quickSort(int arr[], int low, int high)
       /* pi is partitioning index, arr[p] is now
 	 at right place */
       int pi = partition(arr, low, high);
- 
-      // Separately sort elements before
-      // partition and after partition
-      quickSort(arr, low, pi - 1);
-      quickSort(arr, pi + 1, high);
+
+      if (high - low > 300) {
+        // Separately sort elements before
+        // partition and after partition
+        #pragma omp parallel sections
+        {
+          #pragma omp section
+          quickSort(arr, low, pi - 1);
+          #pragma omp section
+          quickSort(arr, pi + 1, high);
+        }
+      } else {
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+      }
+
     }
 }
 
@@ -65,6 +77,7 @@ void printArray(int arr[], int size)
 // Driver program to test above functions
 int main()
 {
+  omp_set_num_threads(2);
   int i,n = 10000000;
   int *arr = (int*) malloc(n*sizeof(int));
 
