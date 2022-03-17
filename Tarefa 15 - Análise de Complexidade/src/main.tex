@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{codigo}{
+    numberstyle=\tiny,
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=codigo}
+
+\setstretch{1.5}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\pagenumbering{gobble}
+\clearpage
+\thispagestyle{empty}
+
+\title{Tarefa 15 - Análise de Complexidade}
+\author{Lucas Santiago de Oliveira}
+\date{Março de 2022}
+
+\begin{document}
+\maketitle
+
+\vspace{2cm}
+
+Código escolhido para paralelizar:
+\lstinputlisting[language=c]{crivo.c}
+
+Versão paralelizada do código:
+\lstinputlisting[language=c]{crivo paralelo.c}
+
+O grande problema do algoritmo de Erastótenes é que há grande dependência
+de dados entre os dois \emph{for} presentes. O \emph{if} que está entre
+os dois causa uma dependência de dados.  
+
+Uma forma de tornar esse código mais eficiente seria trocar a posição entre 
+o segundo \emph{for} com o primeiro \emph{if}. Para que isso fosse possível
+seria necessário modificar parte do código para que o teste se o valor dentro
+do vetor de primos seja verdadeiro sem afetar o resultado correto do algoritmo.
+
+Com um número de \emph{threads} infinito seria possível tornar esse código
+de $\mathcal{O}(N^2)$ para $\mathcal{O(N)}$, se a primeira parte do código
+for executada de forma paralela entre todas as \emph{threads}, a segunda
+parte que envolve uma dependência de dados seja feita de forma sequêncial
+entre todas as \emph{threads} com tempo $\mathcal{O}(N)$.
+ 
+\end{document}
