@@ -1,4 +1,16 @@
 /* C implementation QuickSort from  http://w...content-available-to-author-only...s.org/quick-sort/ */
+/*
+Tempo Sequencial
+real    0m5.829s
+user    0m5.770s
+sys     0m0.052s
+
+Tempo paralelo
+real    0m2.968s
+user    0m4.107s
+sys     0m0.088s
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
