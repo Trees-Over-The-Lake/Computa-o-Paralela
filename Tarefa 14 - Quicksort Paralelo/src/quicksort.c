@@ -72,7 +72,7 @@ int main()
     arr[i] = rand()%n;
 
   quickSort(arr, 0, n-1);
-  printf("Sorted array: \n");
-  printArray(arr, n);
+  //printf("Sorted array: \n");
+  //printArray(arr, n);
   return 0;
 }
