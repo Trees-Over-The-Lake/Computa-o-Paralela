@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
 	float* k_means_serial_optimized(float *imageIn, int clusters, int dimension, int iterations);
         struct timespec diff(struct timespec start, struct timespec end);
         struct timespec time1, time2;
+        double begin_clock, end_clock;
 
         int w = DIM;
         int* width = &w;
@@ -50,21 +51,18 @@ int main(int argc, char** argv) {
 	printf("iters = %d\n", ITERS);
 	printf("clusters = %d\n", CLUSTERS);
 
-	printf("CPU CODE RUNNING SEQUENTIALLY \n");
-	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);   
+	printf("\n========== CPU CODE RUNNING SEQUENTIALLY ========== \n\n");
+	begin_clock = omp_get_wtime();     
         float *imageOut2 = k_means_serial(imageIn, CLUSTERS, DIM, ITERS);
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
-        printf("CPU TIME: %ld \n", (long int)(((double)GIG *diff(time1,time2).tv_sec + diff(time1,time2).tv_nsec)));
-        printf("--------------------------------------\n\n");
+        end_clock = omp_get_wtime(); 
+        printf("CPU TIME: %.2f sec \n", end_clock-begin_clock);
 
         for(int i = 2; i <= 8; i *= 2) {
-	        printf("OMP CODE RUNNING WITH %d THREADS \n", i);
-	        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);   
+	        printf("\n========== OMP CODE RUNNING WITH %d THREADS =========== \n\n", i);
+                begin_clock = omp_get_wtime();    
                 float *imageOut = k_means_omp(imageIn, CLUSTERS, DIM, ITERS, i);
-                clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
-                printf("OMP TIME: %ld \n", (long int)(((double)GIG *diff(time1,time2).tv_sec + diff(time1,time2).tv_nsec)));
-                printf("--------------------------------------\n\n");
-
+                end_clock = omp_get_wtime(); 
+                printf("OMP TIME: %.2f sec \n", end_clock-begin_clock);
                 storeImage(imageOut,imageOutFile, w, h, refFilename);
         }
 
