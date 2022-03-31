@@ -3,3 +3,6 @@ all:
 
 run: all
 	./a.out
+	
+clean:
+	rm -f *.out

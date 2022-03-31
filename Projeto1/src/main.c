@@ -1,4 +1,149 @@
 // gcc -O3 -fopenmp -o main main.c -lrt
+/*
+Teste 01:
+
+Reading input image from testImageGrey.bmp
+width = 512
+height = 512
+iters = 200
+clusters = 64
+
+========== CPU CODE RUNNING SEQUENTIALLY ========== 
+
+CPU TIME: 14.29 sec 
+
+========== OMP CODE RUNNING WITH 2 THREADS =========== 
+
+OMP TIME: 18.04 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 4 THREADS =========== 
+
+OMP TIME: 8.99 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 8 THREADS =========== 
+
+OMP TIME: 7.53 sec 
+Writing output image to testImage512OMP_out.bmp
+
+
+
+Teste 02:
+
+Reading input image from testImageGrey.bmp
+width = 512
+height = 512
+iters = 200
+clusters = 64
+
+========== CPU CODE RUNNING SEQUENTIALLY ========== 
+
+CPU TIME: 12.49 sec 
+
+========== OMP CODE RUNNING WITH 2 THREADS =========== 
+
+OMP TIME: 13.60 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 4 THREADS =========== 
+
+OMP TIME: 8.71 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 8 THREADS =========== 
+
+OMP TIME: 7.77 sec 
+Writing output image to testImage512OMP_out.bmp
+
+
+
+Teste 03:
+
+Reading input image from testImageGrey.bmp
+width = 512
+height = 512
+iters = 200
+clusters = 64
+
+========== CPU CODE RUNNING SEQUENTIALLY ========== 
+
+CPU TIME: 12.41 sec 
+
+========== OMP CODE RUNNING WITH 2 THREADS =========== 
+
+OMP TIME: 12.47 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 4 THREADS =========== 
+
+OMP TIME: 6.85 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 8 THREADS =========== 
+
+OMP TIME: 6.17 sec 
+Writing output image to testImage512OMP_out.bmp
+
+
+
+Teste 04:
+
+Reading input image from testImageGrey.bmp
+width = 512
+height = 512
+iters = 200
+clusters = 64
+
+========== CPU CODE RUNNING SEQUENTIALLY ========== 
+
+CPU TIME: 12.38 sec 
+
+========== OMP CODE RUNNING WITH 2 THREADS =========== 
+
+OMP TIME: 13.49 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 4 THREADS =========== 
+
+OMP TIME: 9.05 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 8 THREADS =========== 
+
+OMP TIME: 7.65 sec 
+Writing output image to testImage512OMP_out.bmp
+
+
+
+Teste 05:
+
+Reading input image from testImageGrey.bmp
+width = 512
+height = 512
+iters = 200
+clusters = 64
+
+========== CPU CODE RUNNING SEQUENTIALLY ========== 
+
+CPU TIME: 12.55 sec 
+
+========== OMP CODE RUNNING WITH 2 THREADS =========== 
+
+OMP TIME: 13.48 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 4 THREADS =========== 
+
+OMP TIME: 9.98 sec 
+Writing output image to testImage512OMP_out.bmp
+
+========== OMP CODE RUNNING WITH 8 THREADS =========== 
+
+OMP TIME: 8.90 sec 
+Writing output image to testImage512OMP_out.bmp
+*/
+
 
 #include <omp.h>
 #include <stdio.h>
