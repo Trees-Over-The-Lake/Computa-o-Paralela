@@ -77,7 +77,7 @@ float* k_means_omp(float *imageIn, int clusters, int dimension, int iterations, 
     // set output
     #pragma omp parallel shared(numElements,cluster,imageOut,centroids) private(n)
     {
-        #pragma omp for simd
+        #pragma omp for
         for ( n=0; n < numElements-1; n++){
             temp2 = (int)cluster[n];
             imageOut[n] = centroids[temp2];
