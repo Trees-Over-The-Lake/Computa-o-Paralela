@@ -3,6 +3,21 @@
 
    Aluno: Lucas Santiago de Oliveira
    Matrícula: 650888
+
+   Meu computador:
+   Ryzen 5 3600XT
+   16GB RAM 2400mhz
+   GTX 1060 3GB
+
+   Tempo paralelo no meu computador
+   real 0.98
+   user 3.87
+   sys 1.43
+
+   Tempo sequencial no meu computador
+   real 1.00
+   user 0.98
+   sys 0.01
 */
 
 #include <stdio.h>
@@ -29,7 +44,8 @@ int sieveOfEratosthenes(int n) {
       if (prime[p] == true)
       {
          // Update all multiples of p
-         #pragma omp parallel for simd
+         #pragma omp target map(tofrom: prime)
+         #pragma omp teams distribute parallel for simd
          for (int i=p*2; i<=n; i += p)
             prime[i] = false;
       }
@@ -37,8 +53,7 @@ int sieveOfEratosthenes(int n) {
 
 
    // count prime numbers
-   #pragma omp target map(tofrom: primes)
-   #pragma omp teams distribute parallel for simd reduction(+: primes)
+   #pragma omp parallel for simd reduction(+: primes)
    for (int p=2; p<=n; p++)
       if (prime[p])
          primes++;
@@ -48,7 +63,7 @@ int sieveOfEratosthenes(int n) {
 
 int main()
 {
-   omp_set_nested(1);
+   //omp_set_nested(1);
    int n = 100000000;
    printf("%d\n",sieveOfEratosthenes(n));
    return 0;
