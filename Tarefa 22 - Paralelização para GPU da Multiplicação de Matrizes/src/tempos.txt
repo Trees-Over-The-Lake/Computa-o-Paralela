@@ -1,0 +1,9 @@
+Sequencial
+
+real 44.25
+user 43.86
+sys 0.37
+
+real 20.05
+user 127.96
+sys 1.82
