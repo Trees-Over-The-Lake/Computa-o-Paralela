@@ -51,6 +51,8 @@ void countOnlyPrimes() {
       int estagio_anterior = 1;
 
       MPI_Recv(&number, 1, MPI_INT, estagio_anterior, MPI_ANY_TAG, MPI_COMM_WORLD, &Status);
+      if(Status.MPI_TAG == END_MSG) break;
+
 
       isComposite = 0;
       for (i = 7; i*i <= number; i += 2)
