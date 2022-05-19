@@ -31,7 +31,7 @@ void removeMultipleOf5() {
      if (Status.MPI_TAG == END_MSG) break;
      if (number % 5 > 0) {
        // enviar para o próximo estágio
-       MPI_Send(&number, 1, MPI_INT, 1, PIPE_MSG,MPI_COMM_WORLD);
+       MPI_Send(&number, 1, MPI_INT, 2, PIPE_MSG,MPI_COMM_WORLD);
      }
    }
    // enviar mensagem de finalização
@@ -44,7 +44,7 @@ void countOnlyPrimes() {
    int number, primeCount, i, isComposite;
    MPI_Status Status; 
 
-   primeCount = 3;  
+   primeCount = 0;  
 
    while (1)  {
       // receber mensagem do estágio anterior
@@ -65,6 +65,19 @@ void countOnlyPrimes() {
 	  if (!isComposite) primeCount++;  
    }
 
+   MPI_Send(&primeCount, 1, MPI_INT, 0, PIPE_MSG, MPI_COMM_WORLD);
+}
+
+void reduce() {
+   int primeCount = 3;
+   MPI_Status Status;
+   int i, subTotal;
+
+   for(int i = 2; i < size; i++) {
+      MPI_Recv(&subTotal, 1, MPI_INT, i, MPI_ANY_TAG, MPI_COMM_WORLD, &Status);
+      primeCount+=subTotal;
+   }
+
    printf("number of primes = %d\n",primeCount);
 }
 
@@ -78,12 +91,14 @@ void main(int argc, char **argv) {
  
    switch (rank)  {
       case 0:  removeMultipleOf3();
+         reduce();
          break;
 
       case 1:  removeMultipleOf5();
          break;
 
       case 2: countOnlyPrimes();
+         break;
    };
 
    MPI_Finalize();
