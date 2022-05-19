@@ -35,7 +35,8 @@ void removeMultipleOf5() {
      }
    }
    // enviar mensagem de finalização
-   MPI_Send(&number, 1, MPI_INT, 1, END_MSG, MPI_COMM_WORLD);
+   for(int i = 2; i < size; i++)
+      MPI_Send(&number, 1, MPI_INT, i, END_MSG, MPI_COMM_WORLD);
 }
 
 void countOnlyPrimes() {
