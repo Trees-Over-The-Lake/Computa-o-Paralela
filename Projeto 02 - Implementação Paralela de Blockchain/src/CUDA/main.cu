@@ -1,8 +1,22 @@
-#include <stdio.h>
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include "headers/blockchain.cuh"
 
-int main(void) {
+#include <iostream>
 
-    printf("Hello world!\n");
+int main() {
+	uint32_t nDifficulty = 5;
+	Blockchain bChain = Blockchain(nDifficulty);
 
-    return 0;
+	std::cout << "Mining block 1..." << std::endl;
+	bChain.AddBlock(new Block(1, "Block 1 Data"));
+
+	std::cout << "Mining block 2..." << std::endl;
+	bChain.AddBlock(new Block(2, "Block 2 Data"));
+
+	std::cout << "Mining block 3..." << std::endl;
+	bChain.AddBlock(new Block(3, "Block 3 Data"));
+
+	bChain.PrintBlockchain();
+	return 0;
 }

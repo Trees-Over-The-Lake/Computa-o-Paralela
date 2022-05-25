@@ -1,11 +1,11 @@
-#CC=nvcc
-CC=gcc
-FLAGS=-lstdc++ -std=c++11 -x c++
-CODE=main.cu
+CC=nvcc
+#CC=gcc
+#FLAGS=-lstdc++ -std=c++11 -x c++
+CODE=main.cu backend/block.cu backend/blockchain.cu backend/sha256.cu
 EXECUTABLE=Blockchain_CUDA.out
 
 all:
-	$(CC) $(FLAGS) $(CODE) -o $(EXECUTABLE)
+	$(CC) $(CODE) -o $(EXECUTABLE)
 
 run: all
 	./$(EXECUTABLE)

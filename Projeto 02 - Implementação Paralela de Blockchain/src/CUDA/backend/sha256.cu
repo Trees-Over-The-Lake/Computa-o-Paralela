@@ -1,6 +1,6 @@
 #include <cstring>
 #include <fstream>
-#include "../headers/Sha256Host.cuh"
+#include "../headers/sha256Host.cuh"
 #include <iostream>
 
 const unsigned int SHA256::sha256_k[64] = //UL = uint32

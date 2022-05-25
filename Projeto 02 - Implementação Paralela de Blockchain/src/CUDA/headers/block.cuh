@@ -27,6 +27,6 @@ private:
 
     // Calculate this block hash
     inline std::string _CalculateHash() const;
-}
+};
 
 #endif
