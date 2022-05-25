@@ -16,7 +16,7 @@ Block::Block(uint32_t nIndexIn, const string &sDataIn) : _nIndex(nIndexIn), _sDa
 void Block::MineBlock(uint32_t nDifficulty)
 {
     char cstr[nDifficulty + 1];
-    #pragma omp target map(tofrom:cstr)
+    #pragma omp target map(tofrom:cstr[0,nDifficulty])
     #pragma omp teams distribute parallel for
     for (uint32_t i = 0; i < nDifficulty; ++i)
     {
@@ -24,15 +24,19 @@ void Block::MineBlock(uint32_t nDifficulty)
     }
     cstr[nDifficulty] = '\0';
 
-    string str(cstr);
+    std::string str(cstr);
 
-    #pragma omp target map(tofrom:sHash)
-    #pragma omp teams distribute single nowait
-    while (sHash.substr(0, nDifficulty) != str)
+    #pragma omp parallel 
     {
-        #pragma omp task firstprivate(sHash)
-        _nNonce++;
-        sHash = _CalculateHash();
+        #pragma omp single nowait
+        {   
+            while (sHash.substr(0, nDifficulty) != str)
+            {
+                #pragma omp task firstprivate(sHash)
+                _nNonce++;
+                sHash = _CalculateHash();
+            }
+        }
     }
 
     cout << "Block mined: " << sHash << endl;
