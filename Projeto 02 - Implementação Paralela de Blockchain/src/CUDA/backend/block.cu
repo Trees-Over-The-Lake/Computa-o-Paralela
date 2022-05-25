@@ -123,7 +123,7 @@ int Block::MineBlock(uint32_t nDifficulty) {
     _sNonce = std::string((const char*) blockSolution);
     _sHash = _CalculateHash();
     
-    return NULL;
+    return -1;
 }
 
 void Block::PrintBlock() {

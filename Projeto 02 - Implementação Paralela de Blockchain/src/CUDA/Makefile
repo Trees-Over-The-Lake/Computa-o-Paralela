@@ -5,7 +5,7 @@ CODE=main.cu backend/block.cu backend/blockchain.cu backend/sha256.cu
 EXECUTABLE=Blockchain_CUDA.out
 
 all:
-	$(CC) $(CODE) -o $(EXECUTABLE)
+	$(CC) -w $(CODE) -o $(EXECUTABLE)
 
 run: all
 	./$(EXECUTABLE)
