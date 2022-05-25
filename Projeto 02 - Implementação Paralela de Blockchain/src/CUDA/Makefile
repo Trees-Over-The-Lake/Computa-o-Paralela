@@ -1,11 +1,14 @@
-all:
-	gcc -lstdc++ -std=c++11 -x c++ main.cpp Block.cpp Blockchain.cpp sha256.cpp
+#CC=nvcc
+CC=gcc
+FLAGS=-lstdc++ -std=c++11 -x c++
+CODE=main.cu
+EXECUTABLE=Blockchain_CUDA.out
 
-parcode:
-	gcc8 -lstdc++ -std=c++11 -x c++ main.cpp Block.cpp Blockchain.cpp sha256.cpp
+all:
+	$(CC) $(FLAGS) $(CODE) -o $(EXECUTABLE)
 
 run: all
-	./a.out
+	./$(EXECUTABLE)
 
-runParcode: parcode
-	./a.out 
+clean:
+	rm $(EXECUTABLE)
